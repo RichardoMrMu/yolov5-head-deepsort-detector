@@ -63,10 +63,9 @@ int Trtyolosort::TrtDetect(cv::Mat &frame,float &conf_thresh,std::vector<DetectB
 	start_draw = clock();
 	auto start = std::chrono::system_clock::now();
 	auto ret = yolov5_trt_detect(trt_engine, frame, conf_thresh,det);
+	DS->sort(frame,det);
 	auto end = std::chrono::system_clock::now();
 	int delay_infer = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-	DS->sort(frame,det);
 	showDetection(frame,det,delay_infer);
-	return 1 ;
-	
+	return 1 ;	
 }
